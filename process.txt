@@ -57,3 +57,9 @@
 	 model.py --> admin --> settings
 						--> url
 						--> forms --> views --> template
+
+12. fetch user data from databse and create table to represent-
+	from django.contrib.auth import get_user_model
+	User = get_user_model()
+	in index view :
+		show = User.objects.all()
