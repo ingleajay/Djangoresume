@@ -1,0 +1,54 @@
+1. django-admin startproject resume
+
+2. django-admin startapp biodata
+
+3. settings.py -> 
+	import os
+	STATIC_DIR = os.path.join(BASE_DIR,'static'),
+	TEMPLATES_DIR = os.path.join(BASE_DIR,'templates')
+	TEMPLATES = ['DIRS': [TEMPLATES_DIR],]
+	STATIC_URL = '/static/'
+	STATICFILE_DIR = [
+    	STATIC_DIR
+	]
+	INSTALLED_APPS = ['biodata',]
+
+4. create folder inside biodata app ->
+	static/biodata -> css , img , js 
+	templates -> base.html , index.html ....
+
+5. runs onces to check --> python manage.py runserver 8000
+
+6. create super user -> 
+	pyhton manage.py makemigrations
+	python manage.py migrate
+	python manage.py createsuperuser
+	enter --> username , password , confirm_password
+	run on browser- > http://127.0.0.1:8000/admin/
+
+7. create forms.py file in biodata folder
+
+8. css -- > index.css
+    base.html -> In head -->
+					{% load static %}
+					<title>{% block title %}Base title{% endblock title %}</title>
+					{% block basecss %}
+						<link rel="stylesheet" href="{% static 'biodata/css/index.css' %}">
+					{% endblock basecss %} 
+					In body -->
+					{% block resume %}{% endblock resume %}
+	index.html-> 
+					{% extends 'base.html' %}
+					{% load static %}
+					{% block title %} Resume {% endblock title %}
+					{% block resume %}
+					<h1>Ajay is here</h1>
+					{% endblock resume %}
+
+9. setup url  in resume folder -> 
+	from biodata import views as v
+	urlpattern = [ path('', v.index, name="index"),]
+
+10. setup views in biodata
+	def index(request):
+		return render(request, 'index.html')
