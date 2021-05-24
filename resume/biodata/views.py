@@ -1,12 +1,15 @@
-from django.shortcuts import render
 from .forms import ResumeForm
 from django.contrib import messages
 from django.shortcuts import render, HttpResponseRedirect
-from django.contrib.auth.models import User
-# Create your views here.
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
+show = None
 
 
 def index(request):
+    global show
     if request.method == 'POST':
         fr = ResumeForm(request.POST, request.FILES)
         if fr.is_valid():
@@ -14,4 +17,5 @@ def index(request):
             fr.save()
     else:
         fr = ResumeForm()
-    return render(request, 'index.html', {'form': fr})
+        show = User.objects.all()
+    return render(request, 'index.html', {'form': fr, 'show': show})

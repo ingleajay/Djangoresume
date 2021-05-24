@@ -5,7 +5,7 @@
 <div class="container mt-4 ">
     <h3 class="text-center alert alert-info">Create Your Resume Online </h3>
     <div class="row">
-        <div class="col-4">
+        <div class="col-lg-4">
             <h4 class="text-center alert alert-warning">Setup your profile</h4>
             <form method="POST" action="" enctype="multipart/form-data" novalidate>
                 {% csrf_token %}
@@ -34,6 +34,41 @@
 
             </form>
         </div>
+        <div class="col-lg-8">
+            <h4 class="text-center alert alert-warning">Show all Users Data</h4>
+            {% if show %}
+            <table class="table ">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Firstname</th>
+                        <th scope="col">Lastname</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">City</th>
+                        <th scope="col">Country</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for st in show %}
+                    <tr>
+                        <th scope="row"><img src="{{st.profile_image}}" class="img-fluid rounded-circle" width="100px"
+                                height="100px"></th>
+                        <td>{{st.username}}</td>
+                        <td>{{st.first_name}}</td>
+                        <td>{{st.last_name}}</td>
+                        <td>{{st.email}}</td>
+                        <td>{{st.city}}</td>
+                        <td>{{st.country}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            {% endif %}
+        </div>
     </div>
+
 </div>
 {% endblock resume %}
