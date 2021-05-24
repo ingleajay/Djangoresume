@@ -52,3 +52,8 @@
 10. setup views in biodata
 	def index(request):
 		return render(request, 'index.html')
+
+11.create resume data save into database - 
+	 model.py --> admin --> settings
+						--> url
+						--> forms --> views --> template

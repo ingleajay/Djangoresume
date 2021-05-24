@@ -2,5 +2,38 @@
 {% load static %}
 {% block title %} Resume {% endblock title %}
 {% block resume %}
-<h1>Ajay is here</h1>
+<div class="container mt-4 ">
+    <h3 class="text-center alert alert-info">Create Your Resume Online </h3>
+    <div class="row">
+        <div class="col-4">
+            <h4 class="text-center alert alert-warning">Setup your profile</h4>
+            <form method="POST" action="" enctype="multipart/form-data" novalidate>
+                {% csrf_token %}
+                <div class="card" style="width: 22rem;">
+                    <div class="card-body">
+                        {% if messages %}
+                        <div class="text-center alert alert-success">
+                            {% for message in messages %}
+                            <strong {% if message.tags %} class="{{message.tags}}" {% endif%}>{{message}}</strong>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                        {% for fr in form %}
+                        {{fr.label_tag}}<br>
+                        <div class="form-group">
+                            <div class="input-group">
+                                {{fr}}<br>
+                            </div>
+                            <div>{{fr.errors}}</div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <input class="btn btn-primary" type="submit" value="Add Data">
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock resume %}
