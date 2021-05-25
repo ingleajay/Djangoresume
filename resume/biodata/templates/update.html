@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Resume {% endblock title %}
+{% block resume %}
+<div class="container mt-4 ">
+    <h3 class="text-center alert alert-success">Create Your Resume Online </h3>
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="card ">
+                <div class="card-header text-white bg-dark  mb-3">
+                    Profile Data :
+                </div>
+                <div class="card-body">
+                    {% if show1.profile_image %}
+                    <img class="card-img-top img-fluid" src="{{show1.profile_image.url}}" alt="user">
+                    {% endif %}
+                    <div class="card">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><b><label class="label_text">Username :</label></b>
+                                {{show1.username}}
+                            </li>
+                            <li class="list-group-item"><b><label class="label_text">Email :</label></b> {{show1.email}}
+                            </li>
+                            <li class="list-group-item"><b><label class="label_text">First Name :</label></b>
+                                {{show1.first_name}}</li>
+                            <li class="list-group-item"><b><label class="label_text">Last Name :</label></b>
+                                {{show1.last_name}}
+                            </li>
+                            <li class="list-group-item"><b><label class="label_text">Gender:</label></b>
+                                {{show1.gender}}
+                            </li>
+                            <li class="list-group-item"><b><label class="label_text">City : </label></b>{{show1.city}}
+                            </li>
+                            <li class="list-group-item"><b><label class="label_text">Country:
+                                    </label></b>{{show1.country}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8 ">
+            <h4 class="text-center alert alert-warning">Update your profile</h4>
+            <form method="POST" action="" enctype="multipart/form-data" novalidate>
+                {% csrf_token %}
+                <div class="card">
+                    <div class="card-body">
+                        {% if messages %}
+                        <div class="text-center alert alert-success">
+                            {% for message in messages %}
+                            <strong {% if message.tags %} class="{{message.tags}}" {% endif%}>{{message}}</strong>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                        {% for fr in form %}
+                        {{fr.label_tag}}<br>
+                        <div class="form-group">
+                            <div class="input-group">
+                                {{fr}}<br>
+                            </div>
+                            <div>{{fr.errors}}</div>
+                        </div>
+                        {% endfor %}
+                        <div class="row d-inline">
+                            <input class="btn btn-success" type="submit" value="Update">
+                            <a class="btn btn-primary" href="{% url 'index' %}" value="Back to Home">Back to Home</a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock resume %}

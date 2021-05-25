@@ -28,39 +28,48 @@
                         </div>
                         {% endfor %}
                     </div>
-                    <input class="btn btn-primary" type="submit" value="Add Data">
+                    <input class="btn btn-success" type="submit" value="Add Data">
 
                 </div>
 
             </form>
         </div>
         <div class="col-lg-8">
-            <h4 class="text-center alert alert-warning">Show all Users Data</h4>
+            <h4 class="text-center alert alert-danger">List of Users Data</h4>
             {% if show %}
-            <table class="table ">
+            <table class="table table-responsive ">
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">Id</th>
                         <th scope="col">Username</th>
                         <th scope="col">Firstname</th>
-                        <th scope="col">Lastname</th>
+                        <!-- <th scope="col">Lastname</th> -->
                         <th scope="col">Email</th>
                         <th scope="col">City</th>
-                        <th scope="col">Country</th>
-
+                        <!-- <th scope="col">Country</th> -->
+                        <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for st in show %}
                     <tr>
-                        <th scope="row"><img src="{{st.profile_image}}" class="img-fluid rounded-circle" width="100px"
-                                height="100px"></th>
+                        <th scope="row"><img src="{{st.profile_image}}" class=" rounded-circle" width="50px"
+                                height="50px"></th>
                         <td>{{st.username}}</td>
                         <td>{{st.first_name}}</td>
-                        <td>{{st.last_name}}</td>
+                        <!-- <td>{{st.last_name}}</td> -->
                         <td>{{st.email}}</td>
                         <td>{{st.city}}</td>
-                        <td>{{st.country}}</td>
+                        <!-- <td>{{st.country}}</td> -->
+                        <td>
+                            <a href="{% url 'update' st.id %}" class="btn btn-warning btn-sm"
+                                style="margin-bottom: 5px; width: 100%;">Edit</a>
+                            <br>
+                            <form action="{% url 'delete' st.id %}" method="POST" class="d-inline">
+                                {% csrf_token %}
+                                <input type="submit" class="btn btn-danger" value="Delete">
+                            </form>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>

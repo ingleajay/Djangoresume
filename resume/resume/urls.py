@@ -21,7 +21,9 @@ from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', v.index, name="index")
+    path('', v.index, name="index"),
+    path('delete/<int:id>/', v.delete_user, name="delete"),
+    path('<int:id>/', v.update_user, name="update"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,

@@ -63,3 +63,38 @@
 	User = get_user_model()
 	in index view :
 		show = User.objects.all()
+
+13. delete user - 
+	views.py -->
+	def delete_user(request, id):
+    if request.method == 'POST':
+        pi = User.objects.get(pk=id)
+        pi.delete()
+        return HttpResponseRedirect('/')
+	urls.py --> 
+		path('delete/<int:id>/', v.delete_user, name="delete"),
+	index.html -->
+		<form action="{% url 'delete' st.id %}" method="POST" class="d-inline">
+                                {% csrf_token %}
+                                <input type="submit" class="btn btn-danger" value="Delete">
+        </form>
+
+14. update user --> create new update.html
+	views.py -> 
+	def update_user(request, id):
+    global show1
+    if request.method == 'POST':
+        pi = User.objects.get(pk=id)
+        fr = ResumeForm(request.POST, request.FILES, instance=pi)
+        if fr.is_valid():
+            messages.success(request, 'Data updated successfullly ')
+            fr.save()
+    else:
+        pi = User.objects.get(pk=id)
+        show1 = User.objects.get(id=id)
+        fr = ResumeForm(instance=pi)
+    return render(request, 'update.html', {'form': fr, 'show1': show1, })
+	urls.py ->
+	    path('<int:id>/', v.update_user, name="update"),
+	update.html->
+		copy form from index.html
