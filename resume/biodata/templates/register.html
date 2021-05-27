@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Resume {% endblock title %}
+{% block register %}
+<section id="hero">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-lg-12 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center"
+                data-aos="fade-up">
+                <div>
+                    <h1>We design Resume Builder product that makes your resume free.</h1>
+                    <h2>you can use this platform to create resume with selecting any template.</h2>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</section><!-- End Hero -->
+<section id="features" class="features">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 mt-2 mb-tg-0 order-1 order-lg-2">
+                <h4 class="text-center  btn btn-info d-block">Setup your profile</h4>
+                <form method="POST" action="" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    <div class="card" style="width: 22rem;">
+                        <div class="card-body">
+                            {% if messages %}
+                            <div class="text-center alert alert-success">
+                                {% for message in messages %}
+                                <strong {% if message.tags %} class="{{message.tags}}" {% endif%}>{{message}}</strong>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            {% for fr in form %}
+                            {{fr.label_tag}}<br>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    {{fr}}<br>
+                                </div>
+                                <div>{{fr.errors}}</div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <input class="btn btn-success " type="submit" value="Add Data">
+
+                    </div>
+
+                </form>
+            </div>
+            <div class="col-lg-8 order-2 order-lg-1" data-aos="zoom-in">
+                <h4 class="text-center btn btn-secondary d-block">List of Users Data</h4>
+                {% if show %}
+                <table class="table table-responsive ">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Username</th>
+                            <th scope="col">Firstname</th>
+                            <!-- <th scope="col">Lastname</th> -->
+                            <th scope="col">Email</th>
+                            <th scope="col">City</th>
+                            <!-- <th scope="col">Country</th> -->
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for st in show %}
+                        <tr>
+                            <th scope="row"><img src="{{st.profile_image.url}}" class=" rounded-circle" width="50px"
+                                    height="50px"></th>
+                            <td>{{st.username}}</td>
+                            <td>{{st.first_name}}</td>
+                            <!-- <td>{{st.last_name}}</td> -->
+                            <td>{{st.email}}</td>
+                            <td>{{st.city}}</td>
+                            <!-- <td>{{st.country}}</td> -->
+                            <td>
+                                <a href="{% url 'view' st.id %}" class="btn btn-warning btn-sm"
+                                    style="margin-bottom: 5px; width: 100%;">View</a>
+                                <br>
+                                <!-- <form action="{% url 'delete' st.id %}" method="POST" class="d-inline">
+                                    {% csrf_token %}
+                                    <input type="submit" class="btn btn-danger " value="Delete">
+                                </form> -->
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+</section><!-- End Features Section -->
+
+{% endblock register %}

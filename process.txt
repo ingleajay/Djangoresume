@@ -98,3 +98,10 @@
 	    path('<int:id>/', v.update_user, name="update"),
 	update.html->
 		copy form from index.html
+
+15. create new template and change all structure of html get new theme bootstrap and edit in all FILES
+
+16. create login and logout features
+	Add reset password features as email send 
+	dashboard theme also add
+

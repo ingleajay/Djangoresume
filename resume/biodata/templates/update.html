@@ -1,38 +1,37 @@
-{% extends 'base.html' %}
+{% extends 'base_nav.html' %}
 {% load static %}
-{% block title %} Resume {% endblock title %}
-{% block resume %}
+{% block title %} update profile {% endblock title %}
+{% block update %}
 <div class="container mt-4 ">
-    <h3 class="text-center alert alert-success">Create Your Resume Online </h3>
     <div class="row">
         <div class="col-lg-4">
             <div class="card ">
-                <div class="card-header text-white bg-dark  mb-3">
+                <div class="card-header text-white bg-dark mb-3">
                     Profile Data :
                 </div>
                 <div class="card-body">
-                    {% if show1.profile_image %}
-                    <img class="card-img-top img-fluid" src="{{show1.profile_image.url}}" alt="user">
+                    {% if pic.profile_image %}
+                    <img class="card-img-top img-fluid" src="{{pic.profile_image.url}}" alt="user">
                     {% endif %}
                     <div class="card">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><b><label class="label_text">Username :</label></b>
-                                {{show1.username}}
+                                {{pic.username}}
                             </li>
-                            <li class="list-group-item"><b><label class="label_text">Email :</label></b> {{show1.email}}
+                            <li class="list-group-item"><b><label class="label_text">Email :</label></b> {{pic.email}}
                             </li>
                             <li class="list-group-item"><b><label class="label_text">First Name :</label></b>
-                                {{show1.first_name}}</li>
+                                {{pic.first_name}}</li>
                             <li class="list-group-item"><b><label class="label_text">Last Name :</label></b>
-                                {{show1.last_name}}
+                                {{pic.last_name}}
                             </li>
                             <li class="list-group-item"><b><label class="label_text">Gender:</label></b>
-                                {{show1.gender}}
+                                {{pic.gender}}
                             </li>
-                            <li class="list-group-item"><b><label class="label_text">City : </label></b>{{show1.city}}
+                            <li class="list-group-item"><b><label class="label_text">City : </label></b> {{pic.city}}
                             </li>
                             <li class="list-group-item"><b><label class="label_text">Country:
-                                    </label></b>{{show1.country}}</li>
+                                    </label></b> {{pic.country}}</li>
                         </ul>
                     </div>
                 </div>
@@ -44,13 +43,6 @@
                 {% csrf_token %}
                 <div class="card">
                     <div class="card-body">
-                        {% if messages %}
-                        <div class="text-center alert alert-success">
-                            {% for message in messages %}
-                            <strong {% if message.tags %} class="{{message.tags}}" {% endif%}>{{message}}</strong>
-                            {% endfor %}
-                        </div>
-                        {% endif %}
                         {% for fr in form %}
                         {{fr.label_tag}}<br>
                         <div class="form-group">
@@ -73,4 +65,4 @@
     </div>
 </div>
 
-{% endblock resume %}
+{% endblock update %}
