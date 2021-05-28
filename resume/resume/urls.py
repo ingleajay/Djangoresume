@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from biodata import views as v
+from dashboard import views as d
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib.auth import views as auth_views
@@ -11,11 +12,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', v.index, name="index"),
     path('delete/<int:id>/', v.delete_user, name="delete"),
-    path('update/', v.update_user, name="update"),
+    path('update/', d.update_user, name="update"),
     path('<int:id>/', v.view_user, name="view"),
     path('login/', v.user_login, name="login"),
     path('reg/', v.register, name="reg"),
-    path('resume/', v.create_resume, name="resume"),
+    path('resume/', d.create_resume, name="resume"),
     path('logout/', v.user_logout, name="logout"),
 
     path('password_reset/',

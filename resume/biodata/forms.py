@@ -8,7 +8,15 @@ from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
-print(make_password('Vijay@123'))
+COUNTRY_CHOICE = (
+    ('india', 'india'),
+    ('japan', 'japan'),
+    ('china', 'china'),
+)
+GENDER_CHOICE = (
+    ('male', 'male'),
+    ('female', 'female'),
+)
 
 
 def isempty_first(value):
@@ -24,8 +32,8 @@ def isempty_last(value):
 def isempty_email(value):
     if value == ' ':
         raise forms.ValidationError("This is can not empty")
-    elif User.objects.filter(email=value).exists():
-        raise forms.ValidationError("Email is already exists")
+    # elif User.objects.filter(email=value).exists():
+    #     raise forms.ValidationError("Email is already exists")
 
 
 def isreset_email(value):
@@ -51,6 +59,11 @@ class ResumeForm(UserCreationForm):
         attrs={'placeholder': 'Enter  last name :', 'class': 'form-control'}),)
     email = forms.EmailField(validators=[isempty_email], widget=forms.EmailInput(
         attrs={'placeholder': 'Enter your email :', 'class': 'form-control'}),)
+
+    country = forms.ChoiceField(choices=COUNTRY_CHOICE, widget=forms.Select(attrs={
+                                'class': 'form-control'}),)
+    gender = forms.ChoiceField(choices=GENDER_CHOICE, widget=forms.Select(attrs={
+        'class': 'form-control'}),)
 
     class Meta:
         model = ResumeUser

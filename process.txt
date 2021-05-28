@@ -105,3 +105,4 @@
 	Add reset password features as email send 
 	dashboard theme also add
 
+17. download new dashboard theme and edit and clean it.

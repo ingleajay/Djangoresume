@@ -9,8 +9,6 @@ User = get_user_model()
 
 show = None
 show1 = None
-pic = None
-pic1 = None
 
 
 def index(request):
@@ -76,28 +74,3 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect('/login/')
-
-
-def create_resume(request):
-    global pic1
-    if request.user.is_authenticated:
-        pic1 = User.objects.get(username=request.user)
-    return render(request, 'resume.html', {'pic1': pic1})
-
-
-def update_user(request):
-    global pic
-    if request.user.is_authenticated:
-        if request.method == 'POST':
-            pi = User.objects.get(username=request.user)
-            fr = ResumeForm(request.POST, request.FILES, instance=pi)
-            if fr.is_valid():
-                messages.success(request, 'Data updated successfullly ')
-                fr.save()
-        else:
-            pi = User.objects.get(username=request.user)
-            pic = User.objects.get(username=request.user)
-            fr = ResumeForm(instance=pi)
-        return render(request, 'update.html', {'form': fr, 'pic': pic, })
-    else:
-        return HttpResponseRedirect('/login/')
